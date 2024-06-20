@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablón de anuncios</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    
+    <header id="header">
+        <nav>
+            <div class="container">
+                <div class="text-center">
+                    <a href="/" class=" nav-brand text-dark">Portal de anuncios</a>
+        </div>
+            </div>
+                </nav>
+
+
+    </header>
+
+
+    <main id="site-main">
+
+        <div class="container">
+            <div class="box-nav d-flex justify-between">
+                <div class="filter">
+
+                    <a href="/"> Lista de anuncios</a>
+                </div>
+        </div>
+        
+
+        <div class="form-title text-center">
+
+            <h2 class="text-dark">Nuevo anuncio</h2>
+            <span class="text-light"> A continuación ingresa los datos del anuncio que deseas Crear</span>
+        </div>
+        <form action = "api/anuncios" method="POST" id="nuevo_anuncio">
+            <div class="nuevo_anuncio">
+                <div class="form-group">
+                    <label for="nombre" class="text-light">Nombre</label>
+                    <input type="hidden" name="id" value="">
+                    <input type="text" name="nombre" value="">
+                </div>
+                <div class="form-group">
+                    <label for="email" class="text-light">Email</label>
+                    <input type="text" name="email" value="" placeholder="ejemplo@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label for="anuncio" class="text-light">Anuncio</label>
+                    <textarea id="anuncio" name="anuncio" maxlength="220"></textarea>
+                </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn text-dark update">Guardar</button>
+                    </div>
+
+
+
+            </div>
+
+
+        </form>
+        </div>
+    </main>
+</body>
+</html>

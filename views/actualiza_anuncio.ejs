@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablón de anuncios</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <header id="header">
+        <nav>
+            <div class="container">
+                <div class="text-center">
+                    <a href="/" class=" nav-brand text-dark">Portal de anuncios</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <main id="site-main">
+
+        <div class="container">
+            <div class="box-nav d-flex justify-between">
+                <div class="filter">
+                    <a href="/"> Lista de anuncios</a>
+                </div>
+            </div>
+
+
+            <div class="form-title text-center">
+
+                <h2 class="text-dark">Actualizar anuncio</h2>
+                <span class="text-light"> A continuación ingresa los datos del anuncio que deseas modificar</span>
+            </div>
+            <form method="POST" id="actualiza-anuncio">
+                <div class="actualiza-anuncio">
+                    <div class="form-group">
+                        <label for="nombre" class="text-light">Nombre</label>
+                        <input type="hidden" name="id" value="<%= anuncio._id %>">
+                        <!--Aqui le di un espacio entre el _id y %>-->
+                        <input type="text" name="nombre"
+                            value="<%= anuncio.nombre %>"><!--modifique la doble comilla y agregue espacio-->
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="text-light">Email</label>
+                        <input type="text" name="email" value="<%= anuncio.email %>"
+                            placeholder="ejemplo@gmail.com"><!--Aqui le di un espacio entre %>-->
+                    </div>
+                    <div class="form-group">
+                        <label for="anuncio" class="text-light">Anuncio</label>
+                        <textarea id="anuncio" name="anuncio"
+                            maxlength="220"><%= anuncio.anuncio %></textarea><!--Aqui le di un espacio entre %> y quite el value porque segun MDN textarea no soporta value-->
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn text-dark update">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $("#actualiza-anuncio").submit(function (event) {
+            event.preventDefault();
+            var unindexed_array = $(this).serializeArray();
+            var data = {};
+            $.map(unindexed_array, function (n, i) {
+                data[n['name']] = n['value'];//se cambio nombre, por name.Porque segun  el metodo de serializeArray() crea una matriz de objetos con valor de name y value https://www.w3schools.com/jquery/ajax_serializearray.asp
+                console.log(data);
+            });//falto ;
+            var request = {
+                "url": `http://localhost:3000/api/anuncios/${data.id}`,//Cambie las comillas simples por ``
+                "method": "PUT",
+                "data": data
+            }; //falto ;
+
+            $.ajax(request).done(function (response) {
+                alert("Información actualizada");
+                window.location = "http://localhost:3000";//brinco de pagina a index
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablón de anuncios</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/style.css">
+
+    
+</head>
+<body>
+    
+    <header id="header">
+        <nav>
+            <div class="container">
+                <div class="text-center">
+                    <a href="/" class=" nav-brand text-dark">Portal de anuncios</a>
+        </div>
+            </div>
+                </nav>
+
+
+    </header>
+
+   
+
+
+    <main id="site-main">
+
+        <div class="container">
+            <div class="box-nav d-flex justify-between">
+                <a href="/new_anuncio" class=" border-shadow">
+                    <span class = "text-gradient">Crear anuncio</span>
+                </a>
+        </div>
+
+        <form action="/" method="POST">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th><ID></th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Anuncio</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i = 0 ;i < anuncios.length;i++){ %>
+                    <tr>
+                        <td><%= i +1 %></td>
+                        <td><%= anuncios[i].nombre %></td>
+                        <td><%= anuncios[i].email %></td>
+                        <td><%= anuncios[i].anuncio %></td>
+                        <td>
+                            <a href="/actualiza-anuncio?id=<%= anuncios[i]._id %>" class="btn border-shadow update">
+                                <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
+                            </a>
+
+                            <a class="btn border-shadow delete" data-id=<%= anuncios[i]._id %> >
+                                <span class="text-gradient"><i class="fas fa-times"></i></span>
+                            </a>
+                        </td>
+                    </tr>   
+                    <% }%>
+                </tbody>
+
+            </table>
+
+        </form>
+        </div>
+    </main>
+
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        if(window.location.pathname =="/"){
+            $ondelete = $(".table tbody td a.delete");
+            $ondelete.click(function(){
+                var id = $(this).attr("data-id");
+    
+                var consulta = {
+                    url:`http://localhost:3000/api/anuncios/${id}`,//cambie comillas
+                    method:"DELETE"
+                };
+    
+               if(confirm("Deseas eliminar el anuncio?")){
+                    $.ajax(consulta).done(function(response){
+                            alert("Anuncio eliminado correctamente");
+                            location.reload();
+                    });//falto cierres
+                };
+            });
+         };
+                
+         </script>
+</body>
+</html>
